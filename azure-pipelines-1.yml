@@ -1,0 +1,29 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+jobs:
+- job: CreateVM
+  displayName: 'Create Azure VM'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+  - task: AzureCLI@2
+    displayName: 'Azure CLI - Create VM'
+    inputs:
+      azureSubscription: $(AZURE_SUBSCRIPTION)
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az vm create \
+          --resource-group $ (Azure Vm) \
+          --name $(Sagar AzureVM) \
+          --image $(VM_IMAGE) \
+          --size $(VM_SIZE) \
+          --location $(AZURE_LOCATION)
